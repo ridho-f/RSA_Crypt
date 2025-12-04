@@ -3,7 +3,7 @@ import math
 
 app = Flask(__name__)
 
-# --- FUNGSI MATEMATIKA DASAR ---
+# --- FUNGSI MATEMATIKA DASAR ---P
 
 def is_prime(n):
     """Cek apakah bilangan n adalah prima."""
