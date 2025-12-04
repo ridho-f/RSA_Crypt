@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>RSA Dashboard - Bloom Edition</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="../static/style.css"
+    />
+    <script src="../static/script.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Quicksand", "sans-serif"],
+              script: [
+                "Dancing Script",
+                "cursive",
+              ],
+              mono: [
+                "JetBrains Mono",
+                "monospace",
+              ],
+            },
+            colors: {
+              fem: {
+                primary: "#f472b6",
+                secondary: "#a78bfa",
+                accent: "#fbcfe8",
+                dark: "#831843",
+                bg: "#fff1f2",
+                glass:
+                  "rgba(255, 255, 255, 0.65)",
+              },
+            },
+            animation: {
+              blob: "blob 7s infinite",
+              "fade-in":
+                "fadeIn 0.5s ease-out forwards",
+            },
+            keyframes: {
+              blob: {
+                "0%": {
+                  transform:
+                    "translate(0px, 0px) scale(1)",
+                },
+                "33%": {
+                  transform:
+                    "translate(30px, -50px) scale(1.1)",
+                },
+                "66%": {
+                  transform:
+                    "translate(-20px, 20px) scale(0.9)",
+                },
+                "100%": {
+                  transform:
+                    "translate(0px, 0px) scale(1)",
+                },
+              },
+              fadeIn: {
+                "0%": {
+                  opacity: "0",
+                  transform: "translateY(10px)",
+                },
+                "100%": {
+                  opacity: "1",
+                  transform: "translateY(0)",
+                },
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-fem-bg text-gray-700 antialiased overflow-hidden h-screen flex"
+  >
+    <div
+      class="fixed inset-0 overflow-hidden -z-10 pointer-events-none"
+    >
+      <div
+        class="absolute top-0 -left-4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"
+      ></div>
+      <div
+        class="absolute top-0 -right-4 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"
+      ></div>
+      <div
+        class="absolute -bottom-8 left-20 w-96 h-96 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"
+      ></div>
+    </div>
+
+    <aside
+      class="w-64 bg-fem-glass backdrop-blur-md border-r border-white/50 hidden md:flex flex-col h-full shadow-lg z-20"
+    >
+      <div class="p-8">
+        <div class="flex items-center gap-3 mb-8">
+          <span
+            class="text-3xl filter drop-shadow-sm"
+            >🌸</span
+          >
+          <h1
+            class="font-script text-3xl font-bold text-fem-dark"
+          >
+            RSA Crypt
+          </h1>
+        </div>
+
+        <nav class="space-y-2">
+          <a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 bg-white/60 text-fem-primary font-bold rounded-xl shadow-sm ring-1 ring-pink-100 transition-all"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+              ></path>
+            </svg>
+            Dashboard
+          </a>
+          <div
+            class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-6 mb-2 px-4"
+          >
+            Project Info
+          </div>
+          <div
+            class="px-4 py-3 text-sm text-gray-500"
+          >
+            <p>
+              Algoritma RSA dengan visualisasi
+              proses matematika.
+            </p>
+          </div>
+        </nav>
+      </div>
+
+      <div
+        class="mt-auto p-6 border-t border-white/50"
+      >
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <span
+              class="absolute -top-2 -right-2 text-lg animate-bounce"
+              >🌺</span
+            >
+            <div
+              class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ring-2 ring-white shadow-md overflow-hidden"
+            >
+              <img
+                class="w-full h-full object-cover"
+                src="https://iili.io/fIhmgHu.jpg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div
+              class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"
+            ></div>
+          </div>
+          <div>
+            <p
+              class="text-sm font-bold text-gray-700"
+            >
+              Azzahra Nur Addin A.
+            </p>
+            <p
+              class="text-[10px] text-gray-400 tracking-wider uppercase"
+            >
+              NIM
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main
+      class="flex-1 overflow-y-auto h-full p-4 md:p-8 relative"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 animate-fade-in"
+      >
+        <div
+          class="glass-card p-5 rounded-2xl border-l-4 border-purple-400 relative overflow-hidden"
+        >
+          <div
+            class="flex justify-between items-start z-10 relative"
+          >
+            <div>
+              <p
+                class="text-xs font-bold text-gray-400 uppercase"
+              >
+                Modulus (N)
+              </p>
+              <h3
+                id="statN"
+                class="text-xl font-mono font-bold text-gray-700 mt-1 truncate"
+              >
+                Not Generated
+              </h3>
+            </div>
+            <div
+              class="p-2 bg-purple-100 rounded-lg text-purple-500"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="glass-card p-5 rounded-2xl border-l-4 border-blue-400 relative overflow-hidden"
+        >
+          <div
+            class="flex justify-between items-start z-10 relative"
+          >
+            <div>
+              <p
+                class="text-xs font-bold text-gray-400 uppercase"
+              >
+                Public Key (E)
+              </p>
+              <h3
+                id="statE"
+                class="text-xl font-mono font-bold text-blue-600 mt-1 truncate"
+              >
+                Not Generated
+              </h3>
+            </div>
+            <div
+              class="p-2 bg-blue-100 rounded-lg text-blue-500"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="glass-card p-5 rounded-2xl border-l-4 border-fem-primary relative overflow-hidden"
+        >
+          <div
+            class="flex justify-between items-start z-10 relative"
+          >
+            <div>
+              <p
+                class="text-xs font-bold text-gray-400 uppercase"
+              >
+                Private Key (D)
+              </p>
+              <h3
+                id="statD"
+                class="text-xl font-mono font-bold text-fem-primary mt-1 truncate"
+              >
+                Not Generated
+              </h3>
+            </div>
+            <div
+              class="p-2 bg-pink-100 rounded-lg text-fem-primary"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="grid grid-cols-1 lg:grid-cols-12 gap-8"
+      >
+        <div
+          class="lg:col-span-5 space-y-6 animate-fade-in"
+          style="animation-delay: 100ms"
+        >
+          <div
+            class="glass-card rounded-3xl p-6 shadow-sm h-full flex flex-col"
+          >
+            <div
+              class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100"
+            >
+              <div
+                class="w-10 h-10 bg-pink-100 text-pink-500 rounded-xl flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                  />
+                </svg>
+              </div>
+              <h2
+                class="text-xl font-bold text-gray-800"
+              >
+                Key Generator
+              </h2>
+            </div>
+
+            <div class="space-y-5">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="group">
+                  <label
+                    class="block text-xs font-bold text-gray-500 mb-2 uppercase ml-1"
+                    >Prime P</label
+                  >
+                  <input
+                    type="number"
+                    id="primeP"
+                    value="61"
+                    class="w-full px-4 py-3 rounded-xl bg-white/50 border border-pink-100 focus:border-fem-primary focus:ring-2 focus:ring-pink-100 outline-none transition-all font-mono text-gray-700"
+                    placeholder="61"
+                  />
+                </div>
+                <div class="group">
+                  <label
+                    class="block text-xs font-bold text-gray-500 mb-2 uppercase ml-1"
+                    >Prime Q</label
+                  >
+                  <input
+                    type="number"
+                    id="primeQ"
+                    value="53"
+                    class="w-full px-4 py-3 rounded-xl bg-white/50 border border-pink-100 focus:border-fem-primary focus:ring-2 focus:ring-pink-100 outline-none transition-all font-mono text-gray-700"
+                    placeholder="53"
+                  />
+                </div>
+              </div>
+
+              <button
+                onclick="generateKeys()"
+                id="generateBtn"
+                class="w-full py-4 bg-gradient-to-r from-fem-primary to-rose-400 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-pink-200 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <span>✨ Generate Keys</span>
+              </button>
+
+              <div
+                id="keySteps"
+                class="hidden mt-4 pt-4 border-t border-gray-100"
+              >
+                <h3
+                  class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3"
+                >
+                  Logs Perhitungan
+                </h3>
+                <div
+                  id="keyStepsContent"
+                  class="space-y-2 max-h-[250px] overflow-y-auto custom-scrollbar pr-1"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="lg:col-span-7 animate-fade-in"
+          style="animation-delay: 200ms"
+        >
+          <div
+            class="glass-card rounded-3xl p-6 shadow-sm min-h-full"
+          >
+            <div
+              class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100"
+            >
+              <div
+                class="flex items-center gap-3"
+              >
+                <div
+                  class="w-10 h-10 bg-purple-100 text-purple-500 rounded-xl flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                    />
+                  </svg>
+                </div>
+                <h2
+                  class="text-xl font-bold text-gray-800"
+                >
+                  Transformasi
+                </h2>
+              </div>
+
+              <div
+                class="flex bg-gray-100/70 p-1 rounded-xl"
+              >
+                <button
+                  id="tab-encrypt-btn"
+                  onclick="switchTab('encrypt')"
+                  class="px-4 py-2 text-xs font-bold rounded-lg bg-white text-fem-secondary shadow-sm transition-all"
+                >
+                  Enkripsi
+                </button>
+                <button
+                  id="tab-decrypt-btn"
+                  onclick="switchTab('decrypt')"
+                  class="px-4 py-2 text-xs font-bold rounded-lg text-gray-500 hover:text-gray-700 transition-all"
+                >
+                  Dekripsi
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="encryptTab"
+              class="space-y-6"
+            >
+              <div>
+                <label
+                  class="block text-xs font-bold text-gray-500 mb-2 uppercase ml-1"
+                  >Pesan (Plaintext)</label
+                >
+                <textarea
+                  id="plaintext"
+                  rows="3"
+                  class="w-full px-5 py-4 rounded-2xl bg-white/50 border border-purple-100 focus:border-fem-secondary focus:ring-2 focus:ring-purple-100 outline-none transition-all font-mono text-gray-700"
+                  placeholder="Tulis pesan rahasia..."
+                ></textarea>
+              </div>
+              <div class="flex justify-end">
+                <button
+                  onclick="encrypt()"
+                  id="encryptBtn"
+                  class="px-8 py-3 bg-fem-secondary text-white font-bold rounded-xl hover:bg-purple-500 hover:shadow-lg hover:shadow-purple-200 transition-all flex items-center gap-2"
+                >
+                  🔒 Kunci Pesan
+                </button>
+              </div>
+
+              <div
+                id="encryptResult"
+                class="hidden"
+              >
+                <div
+                  class="bg-green-50/80 rounded-xl border border-green-100 p-4"
+                >
+                  <div
+                    class="text-xs text-green-600 font-bold uppercase tracking-wider mb-2"
+                  >
+                    Output Ciphertext
+                  </div>
+                  <p
+                    id="ciphertext"
+                    class="font-mono text-lg text-gray-800 break-all"
+                  ></p>
+                </div>
+              </div>
+
+              <div
+                id="encryptSteps"
+                class="hidden"
+              >
+                <h3
+                  class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3"
+                >
+                  Detail Proses
+                </h3>
+                <div
+                  id="encryptStepsContent"
+                  class="space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              id="decryptTab"
+              class="space-y-6 hidden"
+            >
+              <div>
+                <label
+                  class="block text-xs font-bold text-gray-500 mb-2 uppercase ml-1"
+                  >Kode Angka (Ciphertext)</label
+                >
+                <textarea
+                  id="ciphertextInput"
+                  rows="3"
+                  class="w-full px-5 py-4 rounded-2xl bg-white/50 border border-blue-100 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition-all font-mono text-gray-700"
+                  placeholder="123 456 789..."
+                ></textarea>
+              </div>
+              <div class="flex justify-end">
+                <button
+                  onclick="decrypt()"
+                  id="decryptBtn"
+                  class="px-8 py-3 bg-blue-400 text-white font-bold rounded-xl hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-200 transition-all flex items-center gap-2"
+                >
+                  🔑 Buka Pesan
+                </button>
+              </div>
+
+              <div
+                id="decryptResult"
+                class="hidden"
+              >
+                <div
+                  class="bg-blue-50/80 rounded-xl border border-blue-100 p-4"
+                >
+                  <div
+                    class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-2"
+                  >
+                    Output Plaintext
+                  </div>
+                  <p
+                    id="decryptedText"
+                    class="font-mono text-lg text-gray-800 break-all"
+                  ></p>
+                </div>
+              </div>
+
+              <div
+                id="decryptSteps"
+                class="hidden"
+              >
+                <h3
+                  class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3"
+                >
+                  Detail Proses
+                </h3>
+                <div
+                  id="decryptStepsContent"
+                  class="space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
