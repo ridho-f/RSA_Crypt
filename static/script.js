@@ -93,10 +93,6 @@ async function generateKeys() {
     } else {
       keys = { n: data.n, e: data.e, d: data.d };
       
-      // Auto-fill inputs
-      document.getElementById("inputD").value = data.d;
-      document.getElementById("inputN").value = data.n;
-
       // Update Top Stats Cards
       document.getElementById(
         "statN"
