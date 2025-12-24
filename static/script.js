@@ -92,6 +92,10 @@ async function generateKeys() {
       });
     } else {
       keys = { n: data.n, e: data.e, d: data.d };
+      
+      // Auto-fill inputs
+      document.getElementById("inputD").value = data.d;
+      document.getElementById("inputN").value = data.n;
 
       // Update Top Stats Cards
       document.getElementById(
@@ -206,15 +210,21 @@ async function encrypt() {
 }
 
 async function decrypt() {
-  if (!keys.d || !keys.n) {
+  const dInput = document.getElementById("inputD").value;
+  const nInput = document.getElementById("inputN").value;
+
+  if (!dInput || !nInput) {
     Swal.fire({
-      icon: "info",
-      title: "Belum ada kunci",
-      text: "Generate kunci dulu ya! 🌸",
-      confirmButtonColor: "#f472b6",
+      icon: "warning",
+      title: "Kunci Kosong",
+      text: "Masukkan Private Key (d) dan Modulus (n) dulu! 🔑",
+      confirmButtonColor: "#a78bfa",
     });
     return;
   }
+
+  const d = parseInt(dInput);
+  const n = parseInt(nInput);
   const cipherVal = document.getElementById(
     "ciphertextInput"
   ).value;
@@ -247,8 +257,8 @@ async function decrypt() {
       },
       body: JSON.stringify({
         ciphertext: cipherArray,
-        d: keys.d,
-        n: keys.n,
+        d: d,
+        n: n,
       }),
     });
     const data = await response.json();
