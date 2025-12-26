@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify
 import math
 
 app = Flask(__name__)
+from flask_cors import CORS
+CORS(app)
 
 # --- FUNGSI MATEMATIKA DASAR ---P
 
@@ -190,4 +192,4 @@ def decrypt_route():
         return jsonify({'error': str(err)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(host = '0.0.0.0', debug=True, port=5001)
